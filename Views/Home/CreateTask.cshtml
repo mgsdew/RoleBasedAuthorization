@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewData["Title"] = "CreateTask";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @ViewData["Title"]
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row" ng-app="app">
+        <!-- left column -->
+        <div class="col-md-12" ng-controller="taskController">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <div class="col-md-2">
+                        <b>Upload Task File:</b>
+                    </div>
+                    <div class="col-md-9" style="margin-left:-40px;">
+                        <input type="file" id="ngexcelfile" onchange="angular.element(this).scope().READ()" />
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form>
+                    <div class="box-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">Id</th>
+                                    <th>WO#</th>
+                                    <th>Work Type</th>
+                                    <th>Client</th>
+                                    <th>Client Date Due</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="data.length!=0" ng-repeat="item in data">
+                                    <td style="display:none">{{item.TaskId}}</td>
+                                    <td>{{item.WorkOrder}}</td>
+                                    <td>{{item.WorkType}}</td>
+                                    <td>{{item.Client}}</td>
+                                    <td>{{item.ClientDueDate}}</td>
+                                    <td><a ng-click="EditData(item.TaskId);" class="cursor-pointer">Edit</a></td>
+                                    <td><a ng-click="DeleteData(item.TaskId);" class="cursor-pointer">Delete</a></td>
+                                </tr>
+                                <tr ng-show="data.length==0">
+                                    <td colspan="6" style="text-align: center;">No data found to display</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="SaveData()">Submit</button>
+                    </div>
+                </form>
+                <form name="taskEditForm" novalidate>
+                    <div class="row">
+                        <div id="taskEditPopupModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="closePoppup();">&times;</button>
+                                        <h4 class="modal-title">Task Edit</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>WO#</label>
+                                                    <br />
+                                                    <input type="text" ng-model="editData.WorkOrder" name="WO#" class="form-control" required />
+                                                    @*<div ng-messages="taskEditForm.editData.WorkOrder.$error">
+                                                        <div id="validationMsg" ng-message="required">WorkOrder is required.</div>
+                                                    </div>*@
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Work Type</label>
+                                                    <br />
+                                                    <input type="text" ng-model="editData.WorkType" name="WO#" class="form-control" required />
+                                                    @*<div ng-messages="taskEditForm.editData.WorkType.$error">
+                                                        <div id="validationMsg" ng-message="required">Work Type is required.</div>
+                                                    </div>*@
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Client</label>
+                                                    <br />
+                                                    <input type="text" ng-model="editData.Client" name="Client" class="form-control" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row" style="margin-top:20px;">
+                                            <div class="col-sm-12">
+                                                <div>
+                                                    <button type="button" id="btnSubmit" class="btn btn-primary" confirm-button="UpdateData()" message="Do you want to update?" yes="Yes" no="No">Update</button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button id="btnClose" class="btn btn-default" ng-click="closePoppup();">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+@*<div ng-app="app">
+    <div ng-controller="ExcelReadCtrl">
+        <form>
+            <input type="file" id="ngexcelfile" />
+            <input type="button" value="Read Data" ng-click="READ()" />
+            <br />
+            <br />
+            <table border=1>
+                <thead>
+                    <tr>
+                        <th>WO#</th>
+                        <th>Work Type</th>
+                        <th>Age</th>
+                        <th>Client Date Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in data">
+                        <td>{{item.wo}}</td>
+                        <td>{{item.workType}}</td>
+                        <td>{{item.client}}</td>
+                        <td>{{item.clientDateDue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>*@
+
+@section Scripts {
+    <script src="~/CustomeJs/Controller/TaskController.js"></script>
+}

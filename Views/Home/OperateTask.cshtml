@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Operate Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @ViewData["Title"]
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row" ng-app="app">
+        <div class="col-xs-12" ng-controller="taskController">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Task List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>WO#</th>
+                                <th>Work Type</th>
+                                <th>Client</th>
+                                @*<th>Client Due Date</th>*@
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-show="taskList.length!=0" ng-repeat="item in taskList">
+                                <td style="display:none">{{item.taskId}}</td>
+                                <td>{{item.workOrder}}</td>
+                                <td>{{item.workType}}</td>
+                                <td>{{item.client}}</td>
+                                @*<td>{{item.clientDueDate}}</td>*@
+                                <td><a ng-click="EditData(item.taskId);" class="cursor-pointer">Start</a></td>
+                                @*<td><a ng-click="DeleteData(item.taskId);" class="cursor-pointer">Stop</a></td>*@
+                            </tr>
+                            <tr ng-show="taskList.length==0">
+                                <td colspan="5" style="text-align: center;">No data found to display</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="~/CustomeJs/Controller/TaskController.js"></script>
+}
